@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <title>数学练习</title>
+
+    <style>
+      html {
+        font-family: sans-serif;
+      }
+
+      body {
+        width: 50%;
+        max-width: 800px;
+        min-width: 480px;
+        margin: 0 auto;
+      }
+
+      .lastResult {
+        color: white;
+        padding: 3px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- <h1>数学练习</h1> -->
+
+    <p>我刚才随机设定了一个减法。看你能否正确算对。每次我都会告诉你所猜的结果是正确还是错误。</p>
+
+    <div class="form">
+      <label for="range">运算范围: </label>
+      <br>
+      <input type="text" id ="range" class = "range">
+      <br> <br>
+      <label for="guessField">请计算: </label>
+      <br>
+      <input type="text" id ="addOne" class = "addOne">
+      <br> - <br>
+      <input type="text" id ="addTwo" class = "addTwo">
+      <br> <hr> 
+      <input type="text" id="guessField" class="guessField">
+      <br><br>
+
+      <input type="submit" value="确定" class="guessSubmit">
+    </div>
+
+    <div class="resultParas">
+      <p class="guesses"></p>
+      <p class="lastResult"></p>
+      <p class="lowOrHi"></p>
+      <p class="addOneResult"></p>
+      <p class="addTwoResult"></p>
+      <!-- <p class="lowOrHi"></p> -->
+    </div>
+
+    <script src="static/js/script-minus.js"></script>
+  </body>
+</html>
