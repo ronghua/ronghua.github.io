@@ -33,7 +33,6 @@
 
     let guessCount = 1;
     let resetButton;
-    let para;
 
     addOnes.value = randomNumberOne;
     addOnes.disabled = true;
@@ -41,6 +40,14 @@
     addTwos.disabled = true;
 
     function checkGuess() {
+
+        total = document.querySelector('.total');
+        total.disabled = true;
+        correct = document.querySelector('.correct');
+        correct.disabled = true;
+        wrong = document.querySelector('.wrong');
+        wrong.disabled = true;
+
         // alert('我是一个占位符');
         let userGuess = Number(guessField.value);
         if (guessCount === 1) {
@@ -54,6 +61,13 @@
             lowOrHi.textContent = '';
             if (guessCount == 1) {
                 correctCounter++;
+                correct.value = correctCounter;
+                total.value = correctCounter + wrongCounter;
+                wrong.value = wrongCounter;
+            } else if (guessCount > 1) {
+                correct.value = correctCounter;
+                total.value = correctCounter + wrongCounter;
+                wrong.value = wrongCounter;              
             }
             setGameOver();
         } else if (guessCount === 10) {
@@ -69,11 +83,13 @@
             }
         }
         
-        guessCount++;
-        if (guessCount == 3) {
-            console.log("guessCount=3: Increase wrongCounter")
+        if (guessCount == 2) {
+            console.log("guessCount=2: Increase wrongCounter")
             wrongCounter++;
+            console.log("wrongCount=" + wrongCounter)
         }
+        guessCount++;
+
         guessField.value = '';
         guessField.focus();
     }
@@ -83,11 +99,6 @@
     function setGameOver() {
         guessField.disabled = true;
         guessSubmit.disabled = true;
-
-        para = document.createElement('p');
-        document.body.appendChild(para);
-        let total = correctCounter + wrongCounter;
-        para.textContent = "Total run: " + total + ", correct num: " + correctCounter + ", wrong num: " + wrongCounter;
 
         resetButton = document.createElement('button');
         resetButton.textContent = 'New Game';
@@ -104,7 +115,6 @@
         }
 
         resetButton.parentNode.removeChild(resetButton);
-        para.parentNode.removeChild(para);
 
         guessField.disabled = false;
         guessSubmit.disabled = false;

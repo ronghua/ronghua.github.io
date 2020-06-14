@@ -1,4 +1,3 @@
-// import {setGameOver} from './common'
  
     range = document.querySelector('.range')
     if (range.value == null || range.value == '') {
@@ -29,7 +28,6 @@
 
     let guessCount = 1;
     let resetButton;
-    let para;
 
     // guessField.focus();
     addOnes.value = randomNumberOne;
@@ -38,6 +36,15 @@
     addTwos.disabled = true;
 
     function checkGuess() {
+        let guessCorrect = false;
+
+        total = document.querySelector('.total');
+        total.disabled = true;
+        correct = document.querySelector('.correct');
+        correct.disabled = true;
+        wrong = document.querySelector('.wrong');
+        wrong.disabled = true;
+
         // alert('我是一个占位符');
         let userGuess = Number(guessField.value);
         if (guessCount === 1) {
@@ -49,8 +56,17 @@
             lastResult.textContent = '恭喜你！答对了';
             lastResult.style.backgroundColor = 'green';
             lowOrHi.textContent = '';
+            console.log("guessCount=" + guessCount + ", wrongCount=" + wrongCounter)
             if (guessCount == 1) {
                 correctCounter++;
+                guessCorrect = true;
+                correct.value = correctCounter;
+                total.value = correctCounter + wrongCounter;
+                wrong.value = wrongCounter;
+            } else if (guessCount > 1) {
+                correct.value = correctCounter;
+                total.value = correctCounter + wrongCounter;
+                wrong.value = wrongCounter;              
             }
             setGameOver();
         } else if (guessCount === 10) {
@@ -65,12 +81,14 @@
                 lowOrHi.textContent = '你猜高了';
             }
         }
-        
-        guessCount++;
-        if (guessCount == 3) {
-            console.log("guessCount=3: Increase wrongCounter")
+    
+        if (guessCount == 2) {
+            console.log("guessCount=2: Increase wrongCounter")
             wrongCounter++;
+            console.log("wrongCount=" + wrongCounter)
         }
+        guessCount++;
+
         guessField.value = '';
         guessField.focus();
     }
@@ -80,12 +98,7 @@
     function setGameOver() {
         guessField.disabled = true;
         guessSubmit.disabled = true;
-
-        para = document.createElement('p');
-        document.body.appendChild(para);
-        let total = correctCounter + wrongCounter;
-        para.textContent = "Total run: " + total + ", correct num: " + correctCounter + ", wrong num: " + wrongCounter;
-
+        
         resetButton = document.createElement('button');
         resetButton.textContent = 'New Game';
         document.body.appendChild(resetButton);
@@ -101,7 +114,6 @@
         }
 
         resetButton.parentNode.removeChild(resetButton);
-        para.parentNode.removeChild(para)
 
         guessField.disabled = false;
         guessSubmit.disabled = false;
